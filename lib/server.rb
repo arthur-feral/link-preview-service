@@ -20,6 +20,6 @@ class LinkSnifferServer < Sinatra::Base
   get "/" do
     url = params[:url]
     LinkSniffer.logger.info('API') { "Asked: #{url}" }
-    { app_ids: app_ids }.to_json
+    { image: "", title: "", description: "" }.to_json
   end
 end
