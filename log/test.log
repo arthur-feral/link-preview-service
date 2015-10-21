@@ -1,0 +1,24 @@
+# Logfile created on 2015-10-21 09:54:43 +0200 by logger.rb/44203
+I, [2015-10-21T10:09:48.458159 #49943]  INFO -- : nil
+I, [2015-10-21T10:09:56.138470 #49943]  INFO -- API: coucou
+I, [2015-10-21T10:10:47.282033 #50872]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:20:23.650103 #57931]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:20:44.802139 #58222]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:21:27.115425 #58758]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:24:39.326384 #59807]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:24:52.854257 #61111]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:25:13.470709 #61395]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:26:40.633871 #62637]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:30:50.710809 #88175]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:35:52.607223 #91777]  INFO -- API: Asked: http://www.bringr.com
+I, [2015-10-21T10:59:01.499440 #8462]  INFO -- API: Asked: http://www.iadvize.com
+I, [2015-10-21T11:05:46.575893 #13175]  INFO -- API: Asked: http://www.iadvize.com
+I, [2015-10-21T11:08:36.201354 #13461]  INFO -- API: Asked: http://www.iadvize.com
+E, [2015-10-21T12:07:37.612881 #57002] ERROR -- Parser: Error while parsing html document
+E, [2015-10-21T12:07:37.613180 #57002] ERROR -- Parser: undefined method `title=' for {:images=>[], :title=>"", :description=>""}:Hash
+I, [2015-10-21T14:26:23.881033 #15981]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:23.918391 #15981]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:42.847286 #16216]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:42.867378 #16216]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:46.882662 #16292]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:46.897550 #16292]  INFO -- API: Asked: http://example.org/
