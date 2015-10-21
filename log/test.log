@@ -16,3 +16,9 @@ I, [2015-10-21T11:05:46.575893 #13175]  INFO -- API: Asked: http://www.iadvize.c
 I, [2015-10-21T11:08:36.201354 #13461]  INFO -- API: Asked: http://www.iadvize.com
 E, [2015-10-21T12:07:37.612881 #57002] ERROR -- Parser: Error while parsing html document
 E, [2015-10-21T12:07:37.613180 #57002] ERROR -- Parser: undefined method `title=' for {:images=>[], :title=>"", :description=>""}:Hash
+I, [2015-10-21T14:26:23.881033 #15981]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:23.918391 #15981]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:42.847286 #16216]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:42.867378 #16216]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:46.882662 #16292]  INFO -- API: Asked: http://example.org/
+I, [2015-10-21T14:26:46.897550 #16292]  INFO -- API: Asked: http://example.org/

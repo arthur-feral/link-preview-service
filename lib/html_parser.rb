@@ -1,6 +1,8 @@
 require 'nokogiri'
 
 class HtmlParser
+  attr_accessor :doc
+
   def initialize
     @OGDatas = {images: [], title: "", description: ""}
     @doc = nil
@@ -10,7 +12,6 @@ class HtmlParser
   def parse(html = '')
     begin
       @doc = Nokogiri::HTML(html)
-      binding.pry
       @OGDatas[:title] = self.findTitle
       @OGDatas[:images] = self.findImages
       @OGDatas[:description] = self.findDescription
@@ -18,6 +19,8 @@ class HtmlParser
       @logger.error('Parser'){ "Error while parsing html document" }
       @logger.error('Parser'){ "#{e}" }
     end
+
+    return self
   end
 
   def findTitle
@@ -36,7 +39,9 @@ class HtmlParser
         return @doc.css('title').first.text
       end
     rescue StandardError => e
-      return title
+      @logger.error('Parser'){ "Error while getting title" }
+      @logger.error('Parser'){ "#{e}" }
+      return ''
     end
 
     return title
@@ -46,18 +51,25 @@ class HtmlParser
     images = []
     return images if @doc.nil?
     begin
-      metaImage = @doc.cs('meta[property="og:image"]')
+      metaImage = @doc.css('meta[property="og:image"]')
       if metaImage.count != 0
         if metaImage.first.attributes.has_key?('content')
-          return metaImage.first.attributes['content'].value
+          return [metaImage.first.attributes['content'].value]
         end
       end
-
+      imageTags = @doc.css('img')
+      imageTags.each do |imageTag|
+        if imageTag.attributes.has_key?('src')
+          images << imageTag.attributes['src'].value
+        end
+      end
     rescue StandardError => e
-      return images
+      @logger.error('Parser'){ "Error while getting image" }
+      @logger.error('Parser'){ "#{e}" }
+      return []
     end
 
-    return images
+    return images.uniq
   end
 
   def findDescription
@@ -78,7 +90,9 @@ class HtmlParser
         end
       end
     rescue StandardError => e
-      return description
+      @logger.error('Parser'){ "Error while getting description" }
+      @logger.error('Parser'){ "#{e}" }
+      return ''
     end
 
     return description

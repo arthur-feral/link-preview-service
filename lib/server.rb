@@ -32,8 +32,7 @@ class LinkSnifferServer < Sinatra::Base
     if !url.nil?
       uri = URI(url)
       response = Net::HTTP.get(uri)
-      @parser.parse(response)
-      @parser.getOGDatas.to_json
+      @parser.parse(response).getOGDatas.to_json
     else
       400
     end

@@ -9,7 +9,7 @@ end
 describe LinkSnifferServer do
   let(:response_page_1){
     response = {
-      image: "http://www.iadvize.com/fr/wp-content/uploads/sites/2/2015/07/iadvize-logo.png",
+      images: ["http://www.iadvize.com/fr/wp-content/uploads/sites/2/2015/07/iadvize-logo.png"],
       title: "iAdvize : plateforme d'engagement client en temps réel.",
       description: "Engagez vos visiteurs en temps réel par Click to Chat, Click to Call, Click to Video et click to Community depuis votre site et les réseaux sociaux !"
     }.to_json
