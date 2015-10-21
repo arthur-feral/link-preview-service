@@ -1,9 +1,17 @@
+require './link-sniffer'
 require 'sinatra'
 require 'sinatra/cross_origin'
-require './link-sniffer'
+require 'net/http'
 
 class LinkSnifferServer < Sinatra::Base
   register Sinatra::CrossOrigin
+
+  def initialize
+    super
+    @logger = getLogger
+    @parser = HtmlParser.new
+  end
+
   configure do
     enable :cross_origin
   end
@@ -18,8 +26,16 @@ class LinkSnifferServer < Sinatra::Base
   end
 
   get "/" do
+    @logger.info('API') { "Asked: #{url}" }
+
     url = params[:url]
-    LinkSniffer.logger.info('API') { "Asked: #{url}" }
-    { image: "", title: "", description: "" }.to_json
+    if !url.nil?
+      uri = URI(url)
+      response = Net::HTTP.get(uri)
+      @parser.parse(response)
+      @parser.getOGDatas.to_json
+    else
+      400
+    end
   end
 end
