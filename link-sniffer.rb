@@ -23,3 +23,5 @@ def getLogger
   end
   logger
 end
+
+require './lib/html_parser'

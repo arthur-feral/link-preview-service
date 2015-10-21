@@ -36,3 +36,4 @@ build/
 .rvmrc
 *.sublime-*
 .env
+log/*.log

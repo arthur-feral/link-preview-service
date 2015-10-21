@@ -1,7 +1,7 @@
 require './link-sniffer'
 require 'sinatra'
 require 'sinatra/cross_origin'
-require 'net/http'
+require 'httpclient'
 
 class LinkSnifferServer < Sinatra::Base
   register Sinatra::CrossOrigin
@@ -10,6 +10,7 @@ class LinkSnifferServer < Sinatra::Base
     super
     @logger = getLogger
     @parser = HtmlParser.new
+    @httpclient = HTTPClient.new
   end
 
   configure do
@@ -26,13 +27,16 @@ class LinkSnifferServer < Sinatra::Base
   end
 
   get "/" do
-    @logger.info('API') { "Asked: #{url}" }
-
     url = params[:url]
     if !url.nil?
-      uri = URI(url)
-      response = Net::HTTP.get(uri)
-      @parser.parse(response).getOGDatas.to_json
+      begin
+        response = @httpclient.get url, :follow_redirect => true
+        return @parser.parse(response.body).getOGDatas.to_json
+      rescue TooManyRedirect => e
+        @logger.error('API') { "Error: #{e.message}" }
+        @logger.error('API') { "Error: #{e.backtrace.inspect}" }
+        return 500
+      end
     else
       400
     end

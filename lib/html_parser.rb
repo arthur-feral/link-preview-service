@@ -17,7 +17,8 @@ class HtmlParser
       @OGDatas[:description] = self.findDescription
     rescue StandardError => e
       @logger.error('Parser'){ "Error while parsing html document" }
-      @logger.error('Parser'){ "#{e}" }
+      @logger.error('Parser'){ "#{e.message}" }
+      @logger.error('Parser'){ "#{e.backtrace.inspect}" }
     end
 
     return self
@@ -40,7 +41,8 @@ class HtmlParser
       end
     rescue StandardError => e
       @logger.error('Parser'){ "Error while getting title" }
-      @logger.error('Parser'){ "#{e}" }
+      @logger.error('Parser'){ "#{e.message}" }
+      @logger.error('Parser'){ "#{e.backtrace.inspect}" }
       return ''
     end
 
@@ -65,7 +67,8 @@ class HtmlParser
       end
     rescue StandardError => e
       @logger.error('Parser'){ "Error while getting image" }
-      @logger.error('Parser'){ "#{e}" }
+      @logger.error('Parser'){ "#{e.message}" }
+      @logger.error('Parser'){ "#{e.backtrace.inspect}" }
       return []
     end
 
@@ -91,7 +94,8 @@ class HtmlParser
       end
     rescue StandardError => e
       @logger.error('Parser'){ "Error while getting description" }
-      @logger.error('Parser'){ "#{e}" }
+      @logger.error('Parser'){ "#{e.message}" }
+      @logger.error('Parser'){ "#{e.backtrace.inspect}" }
       return ''
     end
 

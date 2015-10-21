@@ -22,7 +22,7 @@ describe LinkSnifferServer do
     end
     context "All parameters ok" do
       it "returns 200" do
-        get '/', { url: "http://www.iadvize.com", query: {lang: "fr"} }
+        get '/', { url: "http://www.iadvize.com/?lang=fr" }
         # expect(last_response).to be_ok
         expect(last_response.status).to eq 200
         expect(last_response.body).to eq response_page_1

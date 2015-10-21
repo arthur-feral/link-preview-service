@@ -11,6 +11,7 @@ gem 'rack-parser', :require => 'rack/parser'
 gem 'pry-byebug'
 gem "sinatra-cross_origin", "~> 0.3.1"
 gem 'nokogiri'
+gem 'httpclient'
 
 group :development do
   gem 'annotate'
