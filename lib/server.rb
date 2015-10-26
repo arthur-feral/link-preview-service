@@ -31,7 +31,7 @@ class LinkSnifferServer < Sinatra::Base
     if !url.nil?
       begin
         response = @httpclient.get url, :follow_redirect => true
-        return @parser.parse(response.body).getOGDatas.to_json
+        return @parser.parse(url, response.body).getOGDatas.to_json
       rescue TooManyRedirect => e
         @logger.error('API') { "Error: #{e.message}" }
         @logger.error('API') { "Error: #{e.backtrace.inspect}" }
