@@ -4,14 +4,15 @@ class HtmlParser
   attr_accessor :doc
 
   def initialize
-    @OGDatas = {images: [], title: "", description: ""}
+    @OGDatas = {url: "", images: [], title: "", description: ""}
     @doc = nil
     @logger = getLogger
   end
 
-  def parse(html = '')
+  def parse(url = '', html = '')
     begin
       @doc = Nokogiri::HTML(html)
+      @OGDatas[:url] = url
       @OGDatas[:title] = self.findTitle
       @OGDatas[:images] = self.findImages
       @OGDatas[:description] = self.findDescription

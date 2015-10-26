@@ -13,10 +13,12 @@ page_3 = read_file(File.dirname(__FILE__), '../support/', 'page_3.html')
 page_4 = read_file(File.dirname(__FILE__), '../support/', 'page_4.html')
 
 describe HtmlParser do
+  let(:websiteUrl){"http://www.iadvize.com/fr"}
   let(:parser){HtmlParser.new}
   context "Page contains OG metadatas" do
     let(:result_page_1){
       datas = {
+        url: websiteUrl,
         images: ["http://www.iadvize.com/fr/wp-content/uploads/sites/2/2015/07/iadvize-logo.png"],
         title: "iAdvize : plateforme d'engagement client en temps réel.",
         description: "Engagez vos visiteurs en temps réel par Click to Chat, Click to Call, Click to Video et click to Community depuis votre site et les réseaux sociaux !"
@@ -25,12 +27,12 @@ describe HtmlParser do
     }
 
     it "parse correctly the page" do
-      parser.parse(page_1)
+      parser.parse(websiteUrl, page_1)
       expect(parser.doc).not_to be_nil
     end
 
     it "returns OG datas" do
-      parser.parse(page_1)
+      parser.parse(websiteUrl, page_1)
       expect(parser.getOGDatas).to eq result_page_1
     end
   end
@@ -39,6 +41,7 @@ describe HtmlParser do
     context "missing og:image" do
       let(:result_page_4){
         datas = {
+          url: websiteUrl,
           images: [
             "http://www.iadvize.com/fr/wp-content/themes/iAdvizeV3/library/images/logo-iadvize.png",
             "http://www.iadvize.com/fr/wp-content/themes/iAdvizeV3/library/images/logo-iadvize-sticky.png",
@@ -71,13 +74,13 @@ describe HtmlParser do
       }
       context "Page contains images" do
         it "returns array of 10 images" do
-          parser.parse(page_4)
+          parser.parse(websiteUrl, page_4)
           expect(parser.getOGDatas).to eq result_page_4
         end
       end
       context "Page doesn't contain images" do
         it "returns an empty images array" do
-          parser.parse("")
+          parser.parse(websiteUrl, "")
           expect(parser.getOGDatas[:images].count).to eq 0
         end
       end
@@ -86,6 +89,7 @@ describe HtmlParser do
     context "missing og:title" do
       let(:result_page_2){
         datas = {
+          url: websiteUrl,
           images: ["http://www.iadvize.com/fr/wp-content/uploads/sites/2/2015/07/iadvize-logo.png"],
           title: "Un titre de secours",
           description: "Engagez vos visiteurs en temps réel par Click to Chat, Click to Call, Click to Video et click to Community depuis votre site et les réseaux sociaux !"
@@ -95,13 +99,13 @@ describe HtmlParser do
 
       context "Page contains title tag" do
         it "returns the page title" do
-          parser.parse page_2
+          parser.parse websiteUrl, page_2
           expect(parser.getOGDatas).to eq result_page_2
         end
       end
       context "Page doesn't contain title tag" do
         it "returns an empty title" do
-          parser.parse ""
+          parser.parse websiteUrl, ""
           expect(parser.getOGDatas[:title]).to eq ""
         end
       end
@@ -110,6 +114,7 @@ describe HtmlParser do
     context "missing og:description" do
       let(:result_page_3){
         datas = {
+          url: websiteUrl,
           images: ["http://www.iadvize.com/fr/wp-content/uploads/sites/2/2015/07/iadvize-logo.png"],
           title: "iAdvize : plateforme d'engagement client en temps réel.",
           description: ""
@@ -118,7 +123,7 @@ describe HtmlParser do
       }
 
       it "returns an empty description" do
-        parser.parse ""
+        parser.parse websiteUrl, ""
         expect(parser.getOGDatas[:description]).to eq ""
       end
     end
