@@ -6,6 +6,9 @@ require 'httpclient'
 class LinkSnifferServer < Sinatra::Base
   register Sinatra::CrossOrigin
 
+  class BadResponseError < StandardError
+  end
+
   def initialize
     super
     @logger = getLogger
@@ -31,14 +34,21 @@ class LinkSnifferServer < Sinatra::Base
     if !url.nil?
       begin
         response = @httpclient.get url, :follow_redirect => true
-        return @parser.parse(url, response.body).getOGDatas.to_json
-      rescue TooManyRedirect => e
+        raise BadResponseError, "unable to GET on #{url}" if !response.ok?
+      rescue BadResponseError => e
         @logger.error('API') { "Error: #{e.message}" }
         @logger.error('API') { "Error: #{e.backtrace.inspect}" }
-        return 500
+        return 404
+      end
+
+      @parser.parse(url, response.body)
+      if @parser.success?
+        return @parser.getOGDatas.to_json
+      else
+        404
       end
     else
-      400
+      return 400
     end
   end
 end
