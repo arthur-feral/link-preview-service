@@ -4,18 +4,21 @@ class HtmlParser
   attr_accessor :doc
 
   def initialize
+    @successParsing = false
     @OGDatas = {url: "", images: [], title: "", description: ""}
     @doc = nil
     @logger = getLogger
   end
 
   def parse(url = '', html = '')
+    @successParsing = false
     begin
       @doc = Nokogiri::HTML(html)
       @OGDatas[:url] = url
       @OGDatas[:title] = self.findTitle
       @OGDatas[:images] = self.findImages
       @OGDatas[:description] = self.findDescription
+      @successParsing = true
     rescue StandardError => e
       @logger.error('Parser'){ "Error while parsing html document" }
       @logger.error('Parser'){ "#{e.message}" }
@@ -101,6 +104,10 @@ class HtmlParser
     end
 
     return description
+  end
+
+  def success?
+    return @successParsing
   end
 
   def getOGDatas
