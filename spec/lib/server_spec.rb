@@ -64,6 +64,18 @@ describe LinkSnifferServer do
           expect(last_response.status).to eq 404
         end
       end
+
+      describe 'Error' do
+        before do
+          stub_request(:get, /http:\/\/www.iadvize.com/).
+            to_return(status: 500, body: '')
+        end
+
+        it "returns 404" do
+          get '/', { url: "http://www.iadvize." }
+          expect(last_response.status).to eq 404
+        end
+      end
     end
   end
 end

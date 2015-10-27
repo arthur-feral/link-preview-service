@@ -35,7 +35,7 @@ class LinkSnifferServer < Sinatra::Base
       begin
         response = @httpclient.get url, :follow_redirect => true
         raise BadResponseError, "unable to GET on #{url}" if !response.ok?
-      rescue BadResponseError => e
+      rescue Exception => e
         @logger.error('API') { "Error: #{e.message}" }
         @logger.error('API') { "Error: #{e.backtrace.inspect}" }
         return 404
